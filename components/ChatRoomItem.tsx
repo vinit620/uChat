@@ -1,19 +1,28 @@
-import * as React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import * as React from "react";
+import { View, Text, Image, StyleSheet } from "react-native";
 
-export default function ChatRoomItem() {
+export default function ChatRoomItem({ chatRoomData }) {
   return (
     <View style={styles.container}>
-      <Image source={{ uri: "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/elon.png"}} style={styles.image}/>
-      <View style={styles.numberView}>
-        <Text style={styles.number}>4</Text>
-      </View>
+      <Image
+        source={{ uri: chatRoomData.users[1].imageUri }}
+        style={styles.image}
+      />
+
+      {chatRoomData.numberOfMessages ? (
+        <View style={styles.numberView}>
+          <Text style={styles.number}>{chatRoomData.numberOfMessages}</Text>
+        </View>
+      ) : null}
+
       <View style={styles.row}>
         <View style={styles.rightTop}>
-          <Text style={styles.name}>Elon Musk</Text>
-          <Text style={styles.text}>2 hrs</Text>
+          <Text style={styles.name}>{chatRoomData.users[1].name}</Text>
+          <Text style={styles.text}>{chatRoomData.lastMessage.createdAt}</Text>
         </View>
-        <Text numberOfLines={1} style={styles.text}>Hii there! Which tech stack are u currently working on?</Text>
+        <Text numberOfLines={1} style={styles.text}>
+          {chatRoomData.lastMessage.content}
+        </Text>
       </View>
     </View>
   );
@@ -21,8 +30,8 @@ export default function ChatRoomItem() {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    padding: 10
+    flexDirection: "row",
+    padding: 10,
   },
   image: {
     height: 50,
@@ -30,36 +39,35 @@ const styles = StyleSheet.create({
     borderRadius: 25,
   },
   numberView: {
-    backgroundColor: '#3777f0',
+    backgroundColor: "#3777f0",
     height: 20,
     width: 20,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: 'white',
-    position: 'absolute',
+    borderColor: "white",
+    position: "absolute",
     top: 10,
-    left: 46
+    left: 46,
   },
   number: {
-    alignSelf: 'center',
-    color: 'white',
+    alignSelf: "center",
+    color: "white",
     fontSize: 13,
   },
   row: {
     flex: 1,
-    justifyContent: 'center',
-    marginHorizontal: 10
+    justifyContent: "center",
+    marginHorizontal: 10,
   },
   rightTop: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   name: {
     fontSize: 18,
-    fontWeight: 'bold'
+    fontWeight: "bold",
   },
   text: {
-    fontSize: 15,
-    color: 'grey'
-  }
+    color: "grey",
+  },
 });
