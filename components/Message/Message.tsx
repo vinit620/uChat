@@ -3,25 +3,35 @@ import { View, Text, StyleSheet } from 'react-native';
 
 const blue = '#3777f0';
 const grey = 'lightgrey';
+const myID = 'u1';
 
-const Message = () => {
+const Message = ({ message }) => {
 
-    const isMe = true;
+    const isMe = message.user.id === myID;
 
     return (
-        <View style={[styles.container, {backgroundColor: isMe ? grey : blue}]}>
-            <Text style={{ color: isMe ? 'black': 'white' }}>Message</Text>
+        <View style={[styles.container, isMe ? styles.right : styles.left]}>
+            <Text style={{ fontSize: 16, color: isMe ? 'black': 'white' }}>{message.content}</Text>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#3777f0',
-        padding: 10,
-        margin: 10,
+        padding: 7,
+        margin: 7,
         borderRadius: 10,
         maxWidth: '75%',
+    },
+    left: {
+        backgroundColor: blue,
+        marginLeft: 10,
+        marginRight: 'auto',
+    },
+    right: {
+        backgroundColor: grey,
+        marginLeft: 'auto',
+        marginRight: 10,
     }
 });
 
